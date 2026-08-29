@@ -1,0 +1,125 @@
+[
+ {
+  "tag": "DeepCrack",
+  "label": "DeepCrack",
+  "items": [
+   {
+    "img": "assets/samples/deepcrack_0_img.jpg",
+    "gt": "assets/samples/deepcrack_0_gt.jpg",
+    "pred": "assets/samples/deepcrack_0_pred.jpg",
+    "err": "assets/samples/deepcrack_0_err.jpg",
+    "iou": 94.0
+   },
+   {
+    "img": "assets/samples/deepcrack_1_img.jpg",
+    "gt": "assets/samples/deepcrack_1_gt.jpg",
+    "pred": "assets/samples/deepcrack_1_pred.jpg",
+    "err": "assets/samples/deepcrack_1_err.jpg",
+    "iou": 91.8
+   },
+   {
+    "img": "assets/samples/deepcrack_2_img.jpg",
+    "gt": "assets/samples/deepcrack_2_gt.jpg",
+    "pred": "assets/samples/deepcrack_2_pred.jpg",
+    "err": "assets/samples/deepcrack_2_err.jpg",
+    "iou": 91.7
+   },
+   {
+    "img": "assets/samples/deepcrack_3_img.jpg",
+    "gt": "assets/samples/deepcrack_3_gt.jpg",
+    "pred": "assets/samples/deepcrack_3_pred.jpg",
+    "err": "assets/samples/deepcrack_3_err.jpg",
+    "iou": 91.6
+   },
+   {
+    "img": "assets/samples/deepcrack_4_img.jpg",
+    "gt": "assets/samples/deepcrack_4_gt.jpg",
+    "pred": "assets/samples/deepcrack_4_pred.jpg",
+    "err": "assets/samples/deepcrack_4_err.jpg",
+    "iou": 91.2
+   }
+  ]
+ },
+ {
+  "tag": "CFD",
+  "label": "CFD",
+  "items": [
+   {
+    "img": "assets/samples/cfd_0_img.jpg",
+    "gt": "assets/samples/cfd_0_gt.jpg",
+    "pred": "assets/samples/cfd_0_pred.jpg",
+    "err": "assets/samples/cfd_0_err.jpg",
+    "iou": 69.4
+   },
+   {
+    "img": "assets/samples/cfd_1_img.jpg",
+    "gt": "assets/samples/cfd_1_gt.jpg",
+    "pred": "assets/samples/cfd_1_pred.jpg",
+    "err": "assets/samples/cfd_1_err.jpg",
+    "iou": 69.4
+   },
+   {
+    "img": "assets/samples/cfd_2_img.jpg",
+    "gt": "assets/samples/cfd_2_gt.jpg",
+    "pred": "assets/samples/cfd_2_pred.jpg",
+    "err": "assets/samples/cfd_2_err.jpg",
+    "iou": 65.9
+   },
+   {
+    "img": "assets/samples/cfd_3_img.jpg",
+    "gt": "assets/samples/cfd_3_gt.jpg",
+    "pred": "assets/samples/cfd_3_pred.jpg",
+    "err": "assets/samples/cfd_3_err.jpg",
+    "iou": 63.6
+   },
+   {
+    "img": "assets/samples/cfd_4_img.jpg",
+    "gt": "assets/samples/cfd_4_gt.jpg",
+    "pred": "assets/samples/cfd_4_pred.jpg",
+    "err": "assets/samples/cfd_4_err.jpg",
+    "iou": 63.2
+   }
+  ]
+ },
+ {
+  "tag": "GAPS384",
+  "label": "GAPs384",
+  "items": [
+   {
+    "img": "assets/samples/gaps384_0_img.jpg",
+    "gt": "assets/samples/gaps384_0_gt.jpg",
+    "pred": "assets/samples/gaps384_0_pred.jpg",
+    "err": "assets/samples/gaps384_0_err.jpg",
+    "iou": 68.3
+   },
+   {
+    "img": "assets/samples/gaps384_1_img.jpg",
+    "gt": "assets/samples/gaps384_1_gt.jpg",
+    "pred": "assets/samples/gaps384_1_pred.jpg",
+    "err": "assets/samples/gaps384_1_err.jpg",
+    "iou": 68.0
+   },
+   {
+    "img": "assets/samples/gaps384_2_img.jpg",
+    "gt": "assets/samples/gaps384_2_gt.jpg",
+    "pred": "assets/samples/gaps384_2_pred.jpg",
+    "err": "assets/samples/gaps384_2_err.jpg",
+    "iou": 67.1
+   },
+   {
+    "img": "assets/samples/gaps384_3_img.jpg",
+    "gt": "assets/samples/gaps384_3_gt.jpg",
+    "pred": "assets/samples/gaps384_3_pred.jpg",
+    "err": "assets/samples/gaps384_3_err.jpg",
+    "iou": 64.6
+   },
+   {
+    "img": "assets/samples/gaps384_4_img.jpg",
+    "gt": "assets/samples/gaps384_4_gt.jpg",
+    "pred": "assets/samples/gaps384_4_pred.jpg",
+    "err": "assets/samples/gaps384_4_err.jpg",
+    "iou": 63.6
+   }
+  ]
+ }
+]

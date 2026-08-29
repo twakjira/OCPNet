@@ -1,0 +1,12 @@
+project59_full.zip
+runs/
+results/
+configs/
+code/
+Manuscript/
+figures/
+*.md
+!docs/README.md
+zip59.out
+!README.md
+!docs/**

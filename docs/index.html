@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCPNet: Orientation Guided Aggregation and Connectivity Propagation for Thin Crack Segmentation</title>
+<meta name="description" content="OCPNet segments thin cracks with a supervised crack tangent field that steers deformable aggregation and connectivity propagation, and quantifies crack length and width from the resulting mask.">
+<meta name="author" content="Tadesse G. Wakjira, Hana L. Goshu">
+<meta name="keywords" content="crack segmentation, thin cracks, connectivity, centerline Dice, tangent field, cross dataset generalization, infrastructure inspection, AI4RISE Lab">
+<link rel="canonical" href="https://twakjira.github.io/OCPNet/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="OCPNet: Orientation Guided Aggregation and Connectivity Propagation for Thin Crack Segmentation">
+<meta property="og:description" content="A supervised crack tangent field steers deformable aggregation and connectivity propagation, reaching a centerline Dice of 90.24 percent on DeepCrack.">
+<meta property="og:url" content="https://twakjira.github.io/OCPNet/">
+<meta property="og:image" content="https://twakjira.github.io/OCPNet/assets/fig_architecture_real.jpg">
+<meta property="og:site_name" content="OCPNet">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OCPNet for Thin Crack Segmentation and Geometric Quantification">
+<meta name="twitter:description" content="Orientation guided aggregation and connectivity propagation for crack masks that stay connected.">
+<meta name="twitter:image" content="https://twakjira.github.io/OCPNet/assets/fig_architecture_real.jpg">
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/app.js" defer></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand"><span>OCP</span>Net</span>
+    <a class="navlink" href="#abstract">Abstract</a>
+    <a class="navlink" href="#method">Method</a>
+    <a class="navlink" href="#results">Results</a>
+    <a class="navlink" href="#explore">Explore</a>
+    <a class="navlink" href="#code">Code</a>
+    <a class="navlink" href="#citation">Citation</a>
+  </div>
+</nav>
+
+<div class="section title-section fadein">
+  <h1 class="project-title">
+    <span class="accent">OCPNet</span>: Orientation Guided Aggregation and Connectivity Propagation for Thin Crack Segmentation and Geometric Quantification
+  </h1>
+  <div class="authors">
+    <a href="https://www.ai4riselab.com" target="_blank" rel="noopener">Tadesse G. Wakjira</a><sup>1</sup>,
+    <a href="https://hanagoshu.com" target="_blank" rel="noopener">Hana L. Goshu</a><sup>2</sup>
+  </div>
+  <div class="affiliations">
+    <span><sup>1</sup>Kennesaw State University</span>
+    <span><sup>2</sup>The Hong Kong Polytechnic University</span>
+  </div>
+  <div class="buttons-row">
+    <a class="pill pill-paper pill-disabled" href="#" onclick="return false;"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Paper</a>
+    <a class="pill pill-method" href="#method"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg>Method</a>
+    <a class="pill pill-method" href="#explore"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg>Explore</a>
+    <a class="pill pill-code" href="https://github.com/twakjira/OCPNet" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Code</a>
+    <a class="pill pill-data" href="https://github.com/yhlleo/DeepCrack" target="_blank" rel="noopener noreferrer"><svg class="pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>Data</a>
+  </div>
+</div>
+
+<div class="section reveal" id="abstract">
+  <h2>Abstract</h2>
+  <p class="abstract-text">
+    An interruption in a predicted mask biases estimates of crack length and width even when region
+    overlap remains high. The orientation guided connectivity propagation network (OCPNet) therefore
+    learns a supervised crack tangent field and uses it to steer deformable feature aggregation and
+    connectivity propagation along the local crack direction. The orientation target comes from the
+    structure tensor of the annotated mask, so no additional labelling is required.
+  </p>
+  <div class="metric-row">
+    <div class="metric-card primary"><div class="label">clDice on DeepCrack</div><div class="value">90.24<span class="unit">%</span></div></div>
+    <div class="metric-card"><div class="label">mIoU on DeepCrack</div><div class="value">87.00<span class="unit">%</span></div></div>
+    <div class="metric-card accent-green"><div class="label">Fragmentation deviation</div><div class="value">0.050</div></div>
+    <div class="metric-card"><div class="label">clDice gain on GAPs384</div><div class="value">+17.16<span class="unit">pts</span></div></div>
+  </div>
+</div>
+
+<div class="section reveal" id="method">
+  <h2>Method</h2>
+  <figure class="architecture">
+    <img src="assets/fig_architecture_real.jpg" alt="Architecture of OCPNet: an encoder, an elongated context module and a decoder produce a high resolution feature, an orientation head predicts a tangent field, and three modules produce the crack mask.">
+    <p class="caption">One tangent field steers both the aggregation and the propagation operators.</p>
+  </figure>
+  <div class="module-list">
+    <p><strong>M1. Directional elongated context.</strong>
+      Horizontal and vertical strip convolutions at several dilation rates enlarge the receptive field
+      along the image axes.</p>
+    <p><strong>M2. Supervised orientation head.</strong>
+      A double angle vector and a crack confidence, learned from the structure tensor of the
+      annotated mask.</p>
+    <p><strong>M3. Orientation field deformable aggregation.</strong>
+      Features sampled at signed offsets along the local tangent, returned as a residual scaled by
+      the crack confidence.</p>
+    <p><strong>M4. Directional connectivity propagation.</strong>
+      Two recurrent steps exchange evidence with the tangent neighbours, gated by the crack
+      confidence.</p>
+    <p><strong>M5. Adaptive fusion.</strong>
+      A pixelwise gate keeps the connectivity pathway from reducing pixel precision.</p>
+  </div>
+  <div class="fig-grid">
+    <figure class="architecture">
+      <img src="assets/fig_dcp_concept.jpg" alt="A crack broken into fragments, the predicted tangent field, and propagation along that field closing the gaps.">
+      <p class="caption">Propagation along the tangent recovers a single connected structure.</p>
+    </figure>
+    <figure class="architecture">
+      <img src="assets/orientation_deepcrack.jpg" alt="Images with the predicted probability map and the predicted tangent field, where colour encodes direction.">
+      <p class="caption">The learned tangent field, with colour encoding the angle.</p>
+    </figure>
+  </div>
+</div>
+
+<div class="section reveal" id="results">
+  <h2>Results</h2>
+
+  <div class="results-subhead">Segmentation on DeepCrack</div>
+  <div class="table-wrap">
+    <table data-sortable>
+      <thead><tr><th>Model</th><th>ODS</th><th>F<sub>1</sub></th><th>IoU</th><th>mIoU</th><th>clDice</th></tr></thead>
+      <tbody>
+        <tr><td>U-Net</td><td>85.33</td><td>83.97</td><td>72.38</td><td>85.53</td><td>86.81</td></tr>
+        <tr><td>DeepLabV3+</td><td>85.88</td><td>84.51</td><td>73.18</td><td>85.94</td><td>88.16</td></tr>
+        <tr><td>FPN</td><td>85.32</td><td>83.84</td><td>72.18</td><td>85.42</td><td>87.34</td></tr>
+        <tr><td>PSPNet</td><td>81.84</td><td>80.41</td><td>67.25</td><td>82.82</td><td>82.43</td></tr>
+        <tr><td>SegFormer-R50</td><td>84.45</td><td>82.48</td><td>70.19</td><td>84.38</td><td>86.27</td></tr>
+        <tr class="ours"><td>OCPNet</td><td>86.59</td><td>85.85</td><td>75.21</td><td>87.00</td><td>90.24</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Click a column to sort. Paired Wilcoxon signed rank tests give p &lt; 0.05 for IoU
+    and clDice against every baseline.</p>
+
+  <div class="results-subhead">Geometry derived from the mask</div>
+  <div class="table-wrap">
+    <table data-sortable data-lower="1,2,3">
+      <thead><tr><th>Model</th><th>Fragmentation deviation</th><th>Length error</th><th>Width error</th><th>Completeness</th></tr></thead>
+      <tbody>
+        <tr><td>U-Net</td><td>0.559</td><td>0.191</td><td>0.183</td><td>0.893</td></tr>
+        <tr><td>DeepLabV3+</td><td>0.685</td><td>0.172</td><td>0.179</td><td>0.903</td></tr>
+        <tr><td>FPN</td><td>0.457</td><td>0.189</td><td>0.181</td><td>0.899</td></tr>
+        <tr><td>PSPNet</td><td>0.830</td><td>0.241</td><td>0.244</td><td>0.852</td></tr>
+        <tr><td>SegFormer-R50</td><td>0.493</td><td>0.194</td><td>0.190</td><td>0.884</td></tr>
+        <tr class="ours"><td>OCPNet</td><td>0.050</td><td>0.170</td><td>0.165</td><td>0.919</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="results-subhead">Cross dataset evaluation</div>
+  <div class="table-wrap">
+    <table data-sortable>
+      <thead><tr><th>Model</th><th>CFD F<sub>1</sub></th><th>CFD clDice</th><th>GAPs384 F<sub>1</sub></th><th>GAPs384 clDice</th></tr></thead>
+      <tbody>
+        <tr><td>U-Net</td><td>51.48</td><td>56.95</td><td>29.79</td><td>34.85</td></tr>
+        <tr><td>DeepLabV3+</td><td>52.31</td><td>56.52</td><td>28.89</td><td>32.58</td></tr>
+        <tr><td>FPN</td><td>52.78</td><td>59.41</td><td>32.45</td><td>37.21</td></tr>
+        <tr><td>PSPNet</td><td>40.72</td><td>42.36</td><td>16.72</td><td>14.80</td></tr>
+        <tr><td>SegFormer-R50</td><td>46.88</td><td>51.00</td><td>28.28</td><td>31.12</td></tr>
+        <tr class="ours"><td>OCPNet</td><td>60.40</td><td>70.16</td><td>43.14</td><td>54.37</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fig-grid">
+    <figure class="architecture">
+      <img src="assets/fig_seg_metrics.jpg" loading="lazy" alt="Grouped bar chart of ODS, F1, IoU, mIoU and clDice for six models, with OCPNet highest on every metric.">
+      <p class="caption">Segmentation scores on DeepCrack.</p>
+    </figure>
+    <figure class="architecture">
+      <img src="assets/fig_frag_headline.jpg" loading="lazy" alt="Chart of the mean fragmentation ratio for six models against an ideal ratio of one, with OCPNet closest to one.">
+      <p class="caption">Fragmentation ratio against the ideal value of one.</p>
+    </figure>
+  </div>
+</div>
+
+<div class="section wide reveal" id="explore">
+  <h2>Explore the predictions</h2>
+  <p class="lead">Drag the divider to wipe between the input image and the selected frame, or cycle
+    the frames automatically.</p>
+  <div class="viewer" id="viewer">
+    <div class="viewer-bar">
+      <div class="frame-tabs" id="dtabs"></div>
+      <span class="viewer-spacer"></span>
+      <div class="frame-tabs" id="ftabs"></div>
+      <button class="tab play" id="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span id="playtxt">Cycle frames</span></button>
+    </div>
+    <div class="viewer-stage">
+      <div class="stage-frame" id="stage">
+        <img id="base" alt="input image">
+        <img id="top" class="top" alt="selected frame">
+        <span class="stage-label left">Image</span>
+        <span class="stage-label right" id="lab">Error map</span>
+        <div class="handle"><span class="handle-grip">&#9666;&#9656;</span></div>
+      </div>
+      <div class="stage-side">
+        <div class="thumbs" id="thumbs"></div>
+        <div class="stage-meta" id="meta"></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#3cbe5a"></i>agreement</span>
+      <span><i style="background:#dc3c3c"></i>missed crack</span>
+      <span><i style="background:#4678eb"></i>additional prediction</span>
+    </div>
+  </div>
+
+  <figure class="architecture" style="margin-top:2rem">
+    <img src="assets/fig_qual_deepcrack.jpg" loading="lazy" alt="Grid of DeepCrack images with observed masks, OCPNet predictions and error maps.">
+    <p class="caption">DeepCrack. The masks follow the annotated centerline over the full length of
+      each crack, junctions included.</p>
+  </figure>
+  <figure class="architecture" style="margin-top:2rem">
+    <img src="assets/fig_qual_crossdataset.jpg" loading="lazy" alt="Grid of CFD and GAPs384 images with observed masks, OCPNet predictions and error maps.">
+    <p class="caption">CFD on the left and GAPs384 on the right.</p>
+  </figure>
+</div>
+
+<div class="section reveal" id="code">
+  <h2>Code</h2>
+  <div class="callout">Source code, training configurations and trained checkpoints will be released
+    in this repository on acceptance of the paper.</div>
+</div>
+
+<div class="section reveal" id="citation">
+  <h2>Citation</h2>
+  <div class="citation-block">@article{wakjira2026ocpnet,<br>
+&nbsp;&nbsp;title&nbsp;&nbsp;&nbsp;= {OCPNet: Orientation guided aggregation and connectivity propagation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for thin crack segmentation and geometric quantification},<br>
+&nbsp;&nbsp;author&nbsp;&nbsp;= {Wakjira, Tadesse G. and Goshu, Hana L.},<br>
+&nbsp;&nbsp;journal&nbsp;= {Under review},<br>
+&nbsp;&nbsp;year&nbsp;&nbsp;&nbsp;&nbsp;= {2026}<br>
+}</div>
+</div>
+
+<footer>
+  Developed by the <a href="https://www.ai4riselab.com" target="_blank" rel="noopener">AI4RISE Lab</a>
+</footer>
+
+</body>
+</html>
